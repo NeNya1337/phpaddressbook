@@ -27,6 +27,13 @@ class Database {
         $sql->execute();
     }
 
+    public function deleteAddress($id):void
+    {
+        $stmt = "DELETE FROM `addresses` WHERE `id`=".$id;
+        $sql = $this->getConnection()->prepare($stmt);
+        $sql->execute();
+    }
+
     public function setConnection($connection):void{
         $this->connection = $connection;
     }

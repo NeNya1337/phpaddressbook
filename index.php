@@ -16,6 +16,9 @@ if(isset($_REQUEST["method"]) && isset($_REQUEST["name"]) && isset($_REQUEST["ci
         default: break;
     }
 }
+if(isset($_REQUEST["instant"]) && isset($_REQUEST["id"])){
+    $page->getDatabase()->deleteAddress($_REQUEST["id"]);
+}
 
 $page->setPlaceholder("%TABLE%", $page->load("table"));
 
