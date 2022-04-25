@@ -3,10 +3,19 @@ require_once("src/classes/db.inc.php");
 require_once("src/classes/page.inc.php");
 
 $page = new Page("overview");
-if(isset($_REQUEST)){
-    $page->getDatabase()->insertAddress($_REQUEST);
+if(isset($_REQUEST["method"]) && isset($_REQUEST["name"]) && isset($_REQUEST["city"])){
+    switch($_REQUEST["method"]){
+        case "edit":
+            if(isset($_REQUEST["id"])){
+                $page->getDatabase()->editAddress($_REQUEST["id"], $_REQUEST);
+            }
+            break;
+        case "insert":
+            $page->getDatabase()->insertAddress($_REQUEST);
+            break;
+        default: break;
+    }
 }
-
 
 $page->setPlaceholder("%TABLE%", $page->load("table"));
 

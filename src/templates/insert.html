@@ -1,8 +1,10 @@
 <a href="index.php" target="_self">back</a>
 <form action="index.php" method="post">
+    <input type="hidden" name="method" value="%METHOD%"/>
+    <input type="hidden" name="id" value="%ID%"/>
     <label for="name">Name</label>
-    <input id="name" type="text" name="name" placeholder="name here..." required/>
+    <input id="name" type="text" name="name" placeholder="name here..." required value="%NAME%"/>
     <label for="city">City</label>
-    <input id="city" type="text" name="city" placeholder="city here..." required/>
+    <input id="city" type="text" name="city" placeholder="city here..." required value="%CITY%"/>
     <button type="submit">send</button>
 </form>

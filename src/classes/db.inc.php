@@ -14,9 +14,15 @@ class Database {
 
     public function insertAddress($data):void
     {
-        $stmt = "INSERT INTO addresses (`name`, `city`) VALUES ('";
-        $stmt .= $data["name"]."', '".$data["city"]."')";
+        $stmt = "INSERT INTO addresses (`name`, `city`) VALUES ('".$data['name']."', '".$data['city']."')";
 
+        $sql = $this->getConnection()->prepare($stmt);
+        $sql->execute();
+    }
+
+    public function editAddress($id, $data):void
+    {
+        $stmt = "UPDATE `addresses` SET `name`='".$data['name']."', `city`='".$data['city']."' WHERE `id`=".$id;
         $sql = $this->getConnection()->prepare($stmt);
         $sql->execute();
     }
