@@ -15,11 +15,15 @@
             public function setHTML($html) { $this->html = $html; }
             public function getHTML() { return $this->html; }
             public function setPlaceholder($placeholder, $content) { $this->setHTML(str_replace($placeholder, $content, $this->getHTML())); }
-            public function __construct() {
+            public function __construct($page) {
 
                 $this->database = new Database("phpab");
                 $this->setHTML($this->load("main"));
 
+                $this->setPlaceholder("%HEAD%", $this->load("head"));
+                $this->setPlaceholder("%HEADER%", $this->load("header"));
+                $this->setPlaceholder("%CONTENT%", $this->load($page));
+                $this->setPlaceholder("%FOOTER%", $this->load("footer"));
 
             }
         }

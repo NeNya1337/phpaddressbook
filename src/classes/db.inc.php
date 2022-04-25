@@ -6,13 +6,22 @@ class Database {
         return $pdo;
     }
 
-    public function dbfetch($statement){
+    public function dbFetch($statement){
         $sql = $this->getConnection()->prepare($statement);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function setConnection($connection){
+    public function insertAddress($data):void
+    {
+        $stmt = "INSERT INTO addresses (`name`, `city`) VALUES ('";
+        $stmt .= $data["name"]."', '".$data["city"]."')";
+
+        $sql = $this->getConnection()->prepare($stmt);
+        $sql->execute();
+    }
+
+    public function setConnection($connection):void{
         $this->connection = $connection;
     }
     public function getConnection(){
