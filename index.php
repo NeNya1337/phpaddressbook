@@ -22,8 +22,18 @@ if(isset($_REQUEST["instant"]) && isset($_REQUEST["id"])){
 
 $page->setPlaceholder("%TABLE%", $page->load("table"));
 
-$stmt = "SELECT * FROM addresses";
+$order_key = "id";
+$order_mode = "asc";
 
+if(isset($_REQUEST["order_key"]) && isset($_REQUEST["order_mode"])){
+    $order_key = $_REQUEST["order_key"];
+    $order_mode = $_REQUEST["order_mode"];
+}
+
+$page->setPlaceholder("%HOKVALUE%", $order_key);
+$page->setPlaceholder("%HOMVALUE%", $order_mode);
+
+$stmt = "SELECT * FROM addresses order by `".$order_key."` ".$order_mode;
 $result = $page->getDatabase()->dbFetch($stmt);
 
 $rows = "";

@@ -1,3 +1,17 @@
 <div class="header">
-    empty header
+    <form action="index.php" method="post">
+        <input type="radio" name="order_key" value="id" id="id"/>
+        <label for="id">Nummer</label>
+        <input type="radio" name="order_key" value="name" id="name"/>
+        <label for="name">Name</label>
+        <input type="radio" name="order_key" value="city" id="city"/>
+        <label for="city">Stadt</label>
+
+        <input type="radio" name="order_mode" value="asc" id="asc"/>
+        <label for="asc">Aufsteigend</label>
+        <input type="radio" name="order_mode" value="desc" id="desc"/>
+        <label for="desc">Absteigend</label>
+
+        <button type="submit">Sortieren</button>
+    </form>
 </div>
