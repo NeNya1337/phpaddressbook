@@ -1,3 +1,5 @@
+CREATE DATABASE phpab COLLATE utf8mb4_general_ci;
+
 CREATE TABLE `phpab`.`addresses` (
     `id` INT NOT NULL AUTO_INCREMENT ,
     `name` VARCHAR(30) NOT NULL ,
@@ -6,4 +8,4 @@ CREATE TABLE `phpab`.`addresses` (
     )
     ENGINE = InnoDB;
 
-INSERT INTO `phpab`.`addresses`( `name`, `city`) VALUES (`mark`,`rüthen`);
+INSERT INTO `phpab`.`addresses`( `name`, `city`) VALUES ("mark","rüthen")
