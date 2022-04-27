@@ -38,18 +38,19 @@ class Database {
      */
     public function dbFetch(string $where_clause, string $order_key = "id", string $order_mode = "asc"): mixed
     {
+        //check if values are not an injection
+        $order_key = array_search($order_key, ["id","name","city"]) ? $order_key : "id";
+        $order_mode = array_search($order_mode, ["asc","desc","ASC", "DESC"]) ? $order_mode : "ASC";
+
         if($where_clause){
-            $stmt = "SELECT * FROM addresses WHERE :where_clause";
+            $stmt = "SELECT * FROM addresses WHERE id = :where_clause";
         } else {
-            $stmt = "SELECT * FROM addresses ORDER BY :order_key :$order_mode";
+            $stmt = "SELECT * FROM addresses ORDER BY `".$order_key."` ".$order_mode;
         }
 
         $sql = $this->getConnection()->prepare($stmt);
         if($where_clause){
-            $sql->bindParam(":where_clause", $where_clause, PDO::PARAM_STR);
-        } else {
-            $sql->bindParam(":order_key", $order_key, PDO::PARAM_STR);
-            $sql->bindParam(":order_mode", $order_mode, PDO::PARAM_STR);
+            $sql->bindParam(":where_clause", $where_clause, PDO::PARAM_INT);
         }
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
