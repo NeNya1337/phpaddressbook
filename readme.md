@@ -4,8 +4,9 @@ Step 1: (PHP) Task: Build a simple Adressbook where a user can add/edit/delete a
 Things you need to prepare:
 * installed webserver, at least PHP 8.0, MySQL-Database, any Browser to start the application
 * put the project files in the root directory (or any folder) of the webroot
-* fill the credentials 
-* run the db.sql on your MySQL-Server
+* create your database
+* fill the credentials in db.ini (username, password and name of your database)
+* import the db.sql on your MySQL-Server
 
 
 * run the application!

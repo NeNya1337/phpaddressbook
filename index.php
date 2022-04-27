@@ -1,13 +1,22 @@
 <?php
-require_once("src/classes/db.inc.php");
-require_once("src/classes/page.inc.php");
+/**
+ * This is the index page.
+ *
+ * It shows the list of the address book and provides access to the CRUD functions for the records.
+ * It also handles the requests if any.
+ *
+ * @author Mark Lösche
+ */
+
+require_once("lib/classes/db.inc.php");
+require_once("lib/classes/page.inc.php");
 
 $page = new Page("overview");
 if(isset($_REQUEST["method"]) && isset($_REQUEST["name"]) && isset($_REQUEST["city"])){
     switch($_REQUEST["method"]){
         case "edit":
             if(isset($_REQUEST["id"])){
-                $page->getDatabase()->editAddress($_REQUEST["id"], $_REQUEST);
+                $page->getDatabase()->editAddress($_REQUEST);
             }
             break;
         case "insert":
@@ -33,8 +42,7 @@ if(isset($_REQUEST["order_key"]) && isset($_REQUEST["order_mode"])){
 $page->setPlaceholder("%HOKVALUE%", $order_key);
 $page->setPlaceholder("%HOMVALUE%", $order_mode);
 
-$stmt = "SELECT * FROM addresses order by `".$order_key."` ".$order_mode;
-$result = $page->getDatabase()->dbFetch($stmt);
+$result = $page->getDatabase()->dbFetch(null, $order_key, $order_mode);
 
 $rows = "";
 foreach($result as $entry){
@@ -46,8 +54,5 @@ foreach($result as $entry){
 }
 
 $page->setPlaceholder("%ROW%", $rows);
-
-
-
 
 echo $page->getHTML();

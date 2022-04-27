@@ -1,6 +1,6 @@
-CREATE DATABASE phpab COLLATE utf8mb4_general_ci;
 
-CREATE TABLE `phpab`.`addresses` (
+
+CREATE TABLE `addresses` (
     `id` INT NOT NULL AUTO_INCREMENT ,
     `name` VARCHAR(30) NOT NULL ,
     `city` VARCHAR(30) NOT NULL ,
