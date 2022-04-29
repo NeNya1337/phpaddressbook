@@ -43,7 +43,7 @@ class Page {
      * @param $filename
      * @return false|string
      */
-    public function load($filename): bool|string
+    public function load($filename)
     {
         return file_get_contents($this->templates_dir.$filename.".html");
     }
@@ -84,7 +84,8 @@ class Page {
         $this->setHTML($this->load("main"));
 
         $this->setPlaceholder("%HEAD%", $this->load("head"));
-        $this->setPlaceholder("%HEADER%", $this->load("header"));
+        $header = $page == "overview" ? $this->load("header") : "";
+        $this->setPlaceholder("%HEADER%", $header);
         $this->setPlaceholder("%CONTENT%", $this->load($page));
         $this->setPlaceholder("%FOOTER%", $this->load("footer"));
 

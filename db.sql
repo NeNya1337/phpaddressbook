@@ -8,4 +8,4 @@ CREATE TABLE `addresses` (
     )
     ENGINE = InnoDB;
 
-INSERT INTO `phpab`.`addresses`( `name`, `city`) VALUES ("mark","rüthen")
+INSERT INTO `addresses`( `name`, `city`) VALUES ("mark","rüthen")

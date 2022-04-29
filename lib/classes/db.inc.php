@@ -31,12 +31,12 @@ class Database {
     }
 
     /**
-     * @param string $where_clause
+     * @param $where_clause
      * @param string $order_key
      * @param string $order_mode
-     * @return mixed
+     * @return array|bool
      */
-    public function dbFetch(string $where_clause, string $order_key = "id", string $order_mode = "asc"): mixed
+    public function dbFetch($where_clause, string $order_key = "id", string $order_mode = "asc")
     {
         //check if values are not an injection
         $order_key = array_search($order_key, ["id","name","city"]) ? $order_key : "id";
@@ -62,7 +62,7 @@ class Database {
      */
     public function insertAddress($data):void
     {
-        $stmt = "INSERT INTO addresses (`name`, `city`) VALUES (':name', ':city')";
+        $stmt = "INSERT INTO addresses (`name`, `city`) VALUES (:name, :city)";
 
         $sql = $this->getConnection()->prepare($stmt);
         $sql->bindParam(':name', $data['name'], PDO::PARAM_STR);
@@ -71,16 +71,15 @@ class Database {
     }
 
     /**
-     * @param $id
      * @param $data
      * @return void
      */
     public function editAddress($data):void
     {
-        $stmt = "UPDATE `addresses` SET `name`=':name', `city`=':city' WHERE `id`=:id";
+        $stmt = "UPDATE `addresses` SET `name`=:name, `city`=:city WHERE `id`=:id";
         $sql = $this->getConnection()->prepare($stmt);
-        $sql->bindParam(':name', $data['name'], PDO::PARAM_STR);
-        $sql->bindParam(':city', $data['city'], PDO::PARAM_STR);
+        $sql->bindParam(':name', $data['name']);
+        $sql->bindParam(':city', $data['city']);
         $sql->bindParam(':id', $data['id'], PDO::PARAM_INT);
         $sql->execute();
     }
@@ -106,9 +105,9 @@ class Database {
     }
 
     /**
-     * @return mixed
+     * @return PDO
      */
-    public function getConnection(): mixed
+    public function getConnection(): PDO
     {
         return $this->connection;
     }
