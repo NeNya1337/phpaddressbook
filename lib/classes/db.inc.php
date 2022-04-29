@@ -9,14 +9,14 @@
  */
 class Database {
     /**
-     * @var
+     * @var PDO
      */
-    private $connection;
+    private PDO $connection;
 
     /**
-     * @var array|false
+     * @var array
      */
-    private $config;
+    private array $config;
 
     /**
      * @param string $dbname
@@ -34,9 +34,9 @@ class Database {
      * @param $where_clause
      * @param string $order_key
      * @param string $order_mode
-     * @return array|bool
+     * @return array
      */
-    public function dbFetch($where_clause, string $order_key = "id", string $order_mode = "asc")
+    public function dbFetch($where_clause, string $order_key = "id", string $order_mode = "asc") :array
     {
         //check if values are not an injection
         $order_key = array_search($order_key, ["id","name","city"]) ? $order_key : "id";
@@ -57,10 +57,10 @@ class Database {
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @return void
      */
-    public function insertAddress($data):void
+    public function insertAddress(array $data):void
     {
         $stmt = "INSERT INTO addresses (`name`, `city`) VALUES (:name, :city)";
 
@@ -71,10 +71,10 @@ class Database {
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @return void
      */
-    public function editAddress($data):void
+    public function editAddress(array $data):void
     {
         $stmt = "UPDATE `addresses` SET `name`=:name, `city`=:city WHERE `id`=:id";
         $sql = $this->getConnection()->prepare($stmt);
@@ -85,10 +85,10 @@ class Database {
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return void
      */
-    public function deleteAddress($id):void
+    public function deleteAddress(int $id):void
     {
         $stmt = "DELETE FROM `addresses` WHERE `id`=:id";
         $sql = $this->getConnection()->prepare($stmt);
@@ -97,10 +97,10 @@ class Database {
     }
 
     /**
-     * @param $connection
+     * @param PDO $connection
      * @return void
      */
-    public function setConnection($connection):void{
+    public function setConnection(PDO $connection):void{
         $this->connection = $connection;
     }
 
@@ -118,6 +118,10 @@ class Database {
     public function __construct()
     {
         $this->config = parse_ini_file("db.ini");
-        $this->setConnection($this->dbConnect($this->config["dbname"], $this->config["user"], $this->config["pass"], $this->config["host"]));
+        $this->setConnection($this->dbConnect(
+            $this->config["dbname"],
+            $this->config["user"],
+            $this->config["pass"],
+            $this->config["host"]));
     }
 }
